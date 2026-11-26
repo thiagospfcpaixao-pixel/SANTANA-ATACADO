@@ -1,0 +1,1212 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Santana Atacado | Portal de Pedidos B2B</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        navy: {
+                            800: '#1e293b',
+                            900: '#0f172a',
+                            950: '#020617',
+                        },
+                        brand: {
+                            500: '#f97316',
+                            600: '#ea580c',
+                            700: '#c2410c',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom scrollbar for sleek B2B look */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="bg-[#f8fafc] text-slate-800 font-sans antialiased selection:bg-orange-500 selection:text-white">
+
+    <!-- Top Info Bar -->
+    <div class="bg-[#020617] text-slate-300 text-xs py-2 px-4 border-b border-slate-800">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
+            <div class="flex items-center gap-4">
+                <span class="flex items-center gap-1.5 text-orange-400 font-medium">
+                    <i data-lucide="truck" class="w-3.5 h-3.5"></i>
+                    Atendimento Exclusivo Lojistas & Atacado
+                </span>
+                <span class="hidden md:inline text-slate-600">|</span>
+                <span class="hidden md:flex items-center gap-1.5">
+                    <i data-lucide="user-check" class="w-3.5 h-3.5 text-slate-400"></i>
+                    Representante: <strong class="text-white">Thiago Soares de Santana</strong>
+                </span>
+            </div>
+            <div class="flex items-center gap-4">
+                <a href="mailto:santanaatacadorr@gmail.com" class="hover:text-white transition-colors flex items-center gap-1">
+                    <i data-lucide="mail" class="w-3.5 h-3.5 text-orange-500"></i>
+                    santanaatacadorr@gmail.com
+                </a>
+                <span class="text-slate-600">|</span>
+                <a href="https://wa.me/5579996627734" target="_blank" rel="noopener noreferrer" class="hover:text-emerald-400 transition-colors flex items-center gap-1 font-medium text-white">
+                    <i data-lucide="phone" class="w-3.5 h-3.5 text-emerald-500"></i>
+                    (79) 99662-7734
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Sticky Header -->
+    <header class="sticky top-0 z-30 bg-[#0f172a] text-white shadow-lg border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 py-3.5">
+            <div class="flex flex-wrap items-center justify-between gap-4">
+                
+                <!-- Brand Logo -->
+                <a href="#" onclick="resetAllFilters(event)" class="flex items-center gap-3 group shrink-0">
+                    <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-orange-500 to-orange-600 flex items-center justify-center shadow-md shadow-orange-500/20 group-hover:scale-105 transition-transform">
+                        <i data-lucide="boxes" class="w-6 h-6 text-white"></i>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-1.5">
+                            <span class="text-xl font-extrabold tracking-tight text-white">SANTANA</span>
+                            <span class="text-xl font-extrabold tracking-tight text-orange-500">ATACADO</span>
+                        </div>
+                        <p class="text-[11px] text-slate-400 font-medium tracking-wider uppercase">Portal B2B & Distribuição</p>
+                    </div>
+                </a>
+
+                <!-- Real-Time Search Bar (Desktop & Tablet) -->
+                <div class="order-3 md:order-2 w-full md:flex-1 md:max-w-xl">
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
+                            <i data-lucide="search" class="w-4 h-4 text-slate-400"></i>
+                        </div>
+                        <input 
+                            type="text" 
+                            id="searchInput" 
+                            placeholder="Buscar por produto, código (ex: fit257), marca ou código de barras..." 
+                            class="w-full bg-slate-800/90 text-white placeholder-slate-400 text-sm rounded-xl pl-10 pr-10 py-2.5 border border-slate-700 focus:outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-500/30 transition-all"
+                        >
+                        <button 
+                            id="clearSearchBtn" 
+                            onclick="clearSearch()" 
+                            class="hidden absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-white"
+                            title="Limpar busca"
+                        >
+                            <i data-lucide="x-circle" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Header Action Buttons -->
+                <div class="order-2 md:order-3 flex items-center gap-2.5 shrink-0">
+                    <!-- Quick WhatsApp Button -->
+                    <a 
+                        href="https://wa.me/5579996627734?text=Ol%C3%A1%20Thiago!%20Estou%20acessando%20o%20cat%C3%A1logo%20B2B%20da%20Santana%20Atacado%20e%20gostaria%20de%20tirar%20uma%20d%C3%BAvida." 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        class="hidden sm:flex items-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white text-sm font-semibold px-3.5 py-2.5 rounded-xl transition-all shadow-sm"
+                        title="Falar direto com Thiago Soares"
+                    >
+                        <i data-lucide="message-circle" class="w-4 h-4"></i>
+                        <span>WhatsApp</span>
+                    </a>
+
+                    <!-- Cart Drawer Trigger -->
+                    <button 
+                        onclick="toggleCartDrawer(true)" 
+                        class="relative flex items-center gap-3 bg-orange-500 hover:bg-orange-600 active:scale-[0.98] text-white px-4 py-2.5 rounded-xl font-semibold transition-all shadow-md shadow-orange-500/20"
+                    >
+                        <div class="relative">
+                            <i data-lucide="shopping-cart" class="w-5 h-5"></i>
+                            <span id="headerCartBadge" class="absolute -top-2 -right-2.5 bg-[#0f172a] text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center border border-orange-400">0</span>
+                        </div>
+                        <div class="text-left leading-tight">
+                            <span class="block text-[10px] text-orange-100 uppercase font-medium">Meu Pedido</span>
+                            <span id="headerCartTotal" class="block text-sm font-extrabold">R$ 0,00</span>
+                        </div>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </header>
+
+    <!-- Horizontal Category Pills Bar -->
+    <div class="bg-white border-b border-slate-200 sticky top-[116px] md:top-[73px] z-20 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 py-2.5 flex items-center gap-2 overflow-x-auto no-scrollbar" id="categoryBar">
+            <!-- Categories rendered dynamically via JS -->
+        </div>
+    </div>
+
+    <!-- Main Content Container -->
+    <main class="max-w-7xl mx-auto px-4 py-6">
+        <div class="flex flex-col lg:flex-row gap-6">
+            
+            <!-- Left Sidebar Filters (Desktop) / Collapsible Mobile Filter -->
+            <aside class="w-full lg:w-64 shrink-0">
+                <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-4 lg:sticky lg:top-[136px]">
+                    <div class="flex items-center justify-between lg:mb-4">
+                        <div class="flex items-center gap-2 font-bold text-slate-900">
+                            <i data-lucide="sliders-horizontal" class="w-4 h-4 text-orange-500"></i>
+                            <span>Filtros do Catálogo</span>
+                        </div>
+                        <button onclick="toggleMobileFilters()" class="lg:hidden text-xs font-semibold text-orange-600 bg-orange-50 px-2.5 py-1 rounded-lg">
+                            Mostrar / Ocultar
+                        </button>
+                    </div>
+
+                    <div id="sidebarFilterContent" class="hidden lg:block space-y-5 mt-4 lg:mt-0">
+                        <!-- Sort Select -->
+                        <div>
+                            <label for="sortSelect" class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Ordenar Por</label>
+                            <select id="sortSelect" onchange="applyFilters()" class="w-full bg-slate-50 border border-slate-200 text-slate-700 text-sm rounded-xl px-3 py-2.5 focus:outline-none focus:border-orange-500 font-medium">
+                                <option value="default">Padrão da Tabela</option>
+                                <option value="price-asc">Menor Preço (Caixa/Pct)</option>
+                                <option value="price-desc">Maior Preço (Caixa/Pct)</option>
+                                <option value="alpha-asc">Ordem Alfabética (A - Z)</option>
+                                <option value="alpha-desc">Ordem Alfabética (Z - A)</option>
+                            </select>
+                        </div>
+
+                        <!-- Brand Filter -->
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <label class="block text-xs font-bold uppercase tracking-wider text-slate-500">Filtrar por Marca</label>
+                                <button id="clearBrandBtn" onclick="selectBrand('TODAS')" class="hidden text-[11px] font-semibold text-orange-600 hover:underline">Limpar</button>
+                            </div>
+                            <div id="brandFilterList" class="max-h-72 overflow-y-auto space-y-1 pr-1">
+                                <!-- Brands rendered dynamically via JS -->
+                            </div>
+                        </div>
+
+                        <!-- Reset All Button -->
+                        <div class="pt-2 border-t border-slate-100">
+                            <button onclick="resetAllFilters()" class="w-full py-2 px-3 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-600 text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors">
+                                <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
+                                Resetar Todos os Filtros
+                            </button>
+                        </div>
+
+                        <!-- Representative Contact Card -->
+                        <div class="bg-slate-900 rounded-xl p-3.5 text-white">
+                            <p class="text-[10px] uppercase tracking-wider text-orange-400 font-bold mb-1">Dúvidas ou Cotação?</p>
+                            <p class="text-xs font-semibold text-white">Thiago Soares de Santana</p>
+                            <p class="text-[11px] text-slate-400 mt-0.5 mb-3">Atendimento direto para fechar seu pedido atacadista.</p>
+                            <a href="https://wa.me/5579996627734" target="_blank" rel="noopener noreferrer" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold py-2 px-3 rounded-lg flex items-center justify-center gap-1.5 transition-colors">
+                                <i data-lucide="phone-call" class="w-3.5 h-3.5"></i>
+                                (79) 99662-7734
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Product Grid Section -->
+            <section class="flex-1 min-w-0">
+                <!-- Results Status Header -->
+                <div class="bg-white rounded-2xl border border-slate-200/80 p-4 mb-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-sm">
+                    <div>
+                        <h1 id="activeCategoryTitle" class="text-lg font-extrabold text-slate-900">Todas as Categorias</h1>
+                        <p class="text-xs text-slate-500 mt-0.5">
+                            Exibindo <strong id="visibleCount" class="text-slate-800">123</strong> de <strong id="totalCount">123</strong> produtos disponíveis na tabela
+                        </p>
+                    </div>
+                    <div id="activeFilterTags" class="flex flex-wrap items-center gap-2">
+                        <!-- Active filter badges injected here -->
+                    </div>
+                </div>
+
+                <!-- Products Grid -->
+                <div id="productsGrid" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
+                    <!-- Product cards rendered dynamically via JS -->
+                </div>
+
+                <!-- Empty Search State -->
+                <div id="emptyState" class="hidden bg-white rounded-2xl border border-slate-200 p-12 text-center">
+                    <div class="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4 text-slate-400">
+                        <i data-lucide="package-search" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-base font-bold text-slate-900">Nenhum produto encontrado</h3>
+                    <p class="text-sm text-slate-500 max-w-md mx-auto mt-1 mb-5">Não encontramos itens correspondentes à sua busca ou filtros atuais. Tente buscar por outro código, nome ou marca.</p>
+                    <button onclick="resetAllFilters()" class="bg-orange-500 hover:bg-orange-600 text-white text-sm font-semibold px-5 py-2.5 rounded-xl transition-colors">
+                        Mostrar Todos os 123 Produtos
+                    </button>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-[#0f172a] text-slate-400 mt-12 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 py-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs">
+            <div class="text-center md:text-left">
+                <p class="text-white font-bold text-sm">SANTANA ATACADO</p>
+                <p class="mt-1">Tabela Oficial de Preços Atacadista &bull; Catálogo B2B Digital</p>
+            </div>
+            <div class="flex flex-col sm:flex-row items-center gap-3 text-slate-300">
+                <span>Contato: <strong class="text-white">Thiago Soares de Santana</strong></span>
+                <span class="hidden sm:inline text-slate-600">&bull;</span>
+                <a href="https://wa.me/5579996627734" target="_blank" rel="noopener noreferrer" class="hover:text-orange-400 transition-colors">(79) 99662-7734</a>
+                <span class="hidden sm:inline text-slate-600">&bull;</span>
+                <a href="mailto:santanaatacadorr@gmail.com" class="hover:text-orange-400 transition-colors">santanaatacadorr@gmail.com</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Cart Drawer Overlay -->
+    <div id="cartOverlay" onclick="toggleCartDrawer(false)" class="fixed inset-0 bg-slate-950/60 backdrop-blur-xs z-40 hidden transition-opacity"></div>
+
+    <!-- Cart Slide-Over Drawer -->
+    <aside id="cartDrawer" class="fixed top-0 right-0 h-full w-full max-w-md bg-white z-50 shadow-2xl transform translate-x-full transition-transform duration-300 flex flex-col">
+        <!-- Drawer Header -->
+        <div class="bg-[#0f172a] text-white px-5 py-4 flex items-center justify-between shrink-0">
+            <div class="flex items-center gap-2.5">
+                <div class="w-9 h-9 rounded-lg bg-orange-500 flex items-center justify-center">
+                    <i data-lucide="shopping-bag" class="w-5 h-5 text-white"></i>
+                </div>
+                <div>
+                    <h2 class="font-bold text-base leading-tight">Resumo do Pedido</h2>
+                    <p class="text-xs text-slate-400">Santana Atacado &bull; B2B</p>
+                </div>
+            </div>
+            <button onclick="toggleCartDrawer(false)" class="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-colors" title="Fechar carrinho">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+        </div>
+
+        <!-- Drawer Scrollable Body -->
+        <div class="flex-1 overflow-y-auto p-5 space-y-5">
+            
+            <!-- Cart Items Container -->
+            <div id="cartItemsContainer" class="space-y-3">
+                <!-- Cart items injected dynamically -->
+            </div>
+
+            <!-- Empty Cart State -->
+            <div id="emptyCartMessage" class="text-center py-10">
+                <div class="w-16 h-16 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center mx-auto mb-3">
+                    <i data-lucide="shopping-cart" class="w-8 h-8"></i>
+                </div>
+                <h3 class="font-bold text-slate-800 text-sm">Seu carrinho está vazio</h3>
+                <p class="text-xs text-slate-500 mt-1 max-w-xs mx-auto">Adicione caixas, pacotes ou fardos do catálogo para montar seu pedido atacadista.</p>
+            </div>
+
+            <!-- Customer Details Form (Shown when cart has items) -->
+            <div id="customerDetailsBox" class="hidden bg-slate-50 rounded-2xl p-4 border border-slate-200 space-y-3">
+                <div class="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-slate-700">
+                    <i data-lucide="store" class="w-4 h-4 text-orange-500"></i>
+                    <span>Identificação do Cliente / Loja</span>
+                </div>
+                <div>
+                    <label for="customerName" class="block text-xs font-medium text-slate-600 mb-1">Nome do Responsável / Nome da Loja</label>
+                    <input type="text" id="customerName" placeholder="Ex: Mercadinho Central - João" class="w-full bg-white border border-slate-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-orange-500">
+                </div>
+                <div>
+                    <label for="customerDocCity" class="block text-xs font-medium text-slate-600 mb-1">CNPJ ou CPF / Cidade - UF</label>
+                    <input type="text" id="customerDocCity" placeholder="Ex: 12.345.678/0001-90 - Aracaju/SE" class="w-full bg-white border border-slate-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-orange-500">
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Drawer Footer Totals & Checkout Actions -->
+        <div id="cartFooter" class="hidden border-t border-slate-200 bg-white p-5 space-y-4 shrink-0 shadow-[0_-4px_15px_rgba(0,0,0,0.04)]">
+            <div class="space-y-1.5">
+                <div class="flex justify-between text-xs text-slate-500">
+                    <span>Total de Volumes / Caixas:</span>
+                    <strong id="cartTotalVolumes" class="text-slate-800 font-bold">0 un.</strong>
+                </div>
+                <div class="flex justify-between text-xs text-slate-500">
+                    <span>Variedade de Itens (SKUs):</span>
+                    <strong id="cartTotalSkus" class="text-slate-800 font-bold">0 itens</strong>
+                </div>
+                <div class="flex justify-between items-baseline pt-2 border-t border-slate-100">
+                    <span class="text-sm font-bold text-slate-900">Total Estimado:</span>
+                    <span id="cartGrandTotal" class="text-2xl font-extrabold text-orange-600">R$ 0,00</span>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="space-y-2.5">
+                <button onclick="checkoutWhatsApp()" class="w-full bg-emerald-600 hover:bg-emerald-500 active:scale-[0.99] text-white font-bold py-3.5 px-4 rounded-xl flex items-center justify-center gap-2 shadow-md shadow-emerald-600/20 transition-all text-sm">
+                    <i data-lucide="send" class="w-4 h-4"></i>
+                    <span>Finalizar Pedido via WhatsApp</span>
+                </button>
+
+                <div class="grid grid-cols-2 gap-2">
+                    <button onclick="copyOrderSummary()" class="bg-slate-100 hover:bg-slate-200 text-slate-800 font-semibold py-2.5 px-3 rounded-xl flex items-center justify-center gap-1.5 text-xs transition-colors">
+                        <i data-lucide="copy" class="w-3.5 h-3.5 text-slate-600"></i>
+                        <span>Copiar Resumo</span>
+                    </button>
+                    <button onclick="checkoutEmail()" class="bg-slate-100 hover:bg-slate-200 text-slate-800 font-semibold py-2.5 px-3 rounded-xl flex items-center justify-center gap-1.5 text-xs transition-colors">
+                        <i data-lucide="mail" class="w-3.5 h-3.5 text-slate-600"></i>
+                        <span>Enviar por E-mail</span>
+                    </button>
+                </div>
+
+                <button onclick="clearCart()" class="w-full text-center text-[11px] text-rose-500 hover:text-rose-600 font-medium pt-1">
+                    Esvaziar carrinho
+                </button>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Toast Notification Container -->
+    <div id="toastContainer" class="fixed bottom-5 left-1/2 -translate-x-1/2 z-50 flex flex-col gap-2 pointer-events-none w-max max-w-[90vw]"></div>
+
+    <script>
+        // =========================================================================
+        // CATÁLOGO COMPLETO E FIEL DA TABELA SANTANA ATACADO (123 PRODUTOS)
+        // =========================================================================
+        const CATALOG = [
+            // BALAS (21 itens)
+            { code: "fit257", category: "Balas", name: "BALA CHICLE AZEDINHA 400G MORANGO", brand: "CORY", pack: "PCT/90", price: 9.50, unitPrice: 0.11, ean: "7896286621427" },
+            { code: "fit264", category: "Balas", name: "BALA CHICLE AZEDINHA 400G UVA", brand: "CORY", pack: "PCT/90", price: 9.50, unitPrice: 0.11, ean: "7896286621441" },
+            { code: "fit4502", category: "Balas", name: "BALA CHICLE ICEKISS 400G TUTTI FRUTTI", brand: "CORY", pack: "PCT/90", price: 9.50, unitPrice: 0.11, ean: "7896286621410" },
+            { code: "fit1807", category: "Balas", name: "BALA DURA ICEKISS 500G CEREJA", brand: "CORY", pack: "PCT/100", price: 9.50, unitPrice: 0.10, ean: "7896286621236" },
+            { code: "fit406", category: "Balas", name: "BALA DURA ICEKISS 500G EUCALIPTO", brand: "CORY", pack: "PCT/100", price: 9.50, unitPrice: 0.10, ean: "7896286621229" },
+            { code: "fit405", category: "Balas", name: "BALA DURA ICEKISS 500G EXTRA FORTE", brand: "CORY", pack: "PCT/100", price: 9.50, unitPrice: 0.10, ean: "7896286621212" },
+            { code: "fit404", category: "Balas", name: "BALA DURA ICEKISS 500G MENTA", brand: "CORY", pack: "PCT/100", price: 9.50, unitPrice: 0.10, ean: "7896286621250" },
+            { code: "fit403", category: "Balas", name: "BALA DURA ICEKISS 500G MORANGO", brand: "CORY", pack: "PCT/100", price: 9.50, unitPrice: 0.10, ean: "7896286621243" },
+            { code: "fit95", category: "Balas", name: "BALA DURA ICEKISS 500G SORTIDA", brand: "CORY", pack: "PCT/100", price: 9.50, unitPrice: 0.10, ean: "7896286621267" },
+            { code: "fit400", category: "Balas", name: "BALA DURA ICEKISS 500G TUTTI FRUTTI", brand: "CORY", pack: "PCT/100", price: 9.50, unitPrice: 0.10, ean: "7896286621298" },
+            { code: "fit1810", category: "Balas", name: "BALA DURA ICEKISS LOVE 450G MENTA", brand: "CORY", pack: "PCT/100", price: 9.50, unitPrice: 0.10, ean: "7896286623360" },
+            { code: "fit1808", category: "Balas", name: "BALA DURA ICEKISS LOVE 450G MORANGO", brand: "CORY", pack: "PCT/100", price: 9.50, unitPrice: 0.10, ean: "7896286623346" },
+            { code: "fit1809", category: "Balas", name: "BALA DURA ICEKISS TENTACAO 500G MELAO", brand: "CORY", pack: "PCT/100", price: 9.50, unitPrice: 0.10, ean: "7896286621274" },
+            { code: "fit175", category: "Balas", name: "BALA DURA SANTA FE 450G CAFE", brand: "SANTA FE", pack: "PCT/100", price: 10.00, unitPrice: 0.10, ean: "7896665203107" },
+            { code: "fit174", category: "Balas", name: "BALA DURA SANTA FE 600G CANELA", brand: "SANTA FE", pack: "UND/100", price: 10.00, unitPrice: 0.10, ean: "7896665280894" },
+            { code: "fit106", category: "Balas", name: "BALA DURA SANTA FE 600G HORTELA", brand: "SANTA FE", pack: "PCT/100", price: 10.00, unitPrice: 0.10, ean: "7896665280917" },
+            { code: "fit448", category: "Balas", name: "BALA MASTIGAVEL ERLAN 500G SORTIDA", brand: "ERLAN", pack: "PCT/100", price: 8.00, unitPrice: 0.08, ean: "7896077079352" },
+            { code: "fit176", category: "Balas", name: "BALA MASTIGAVEL LILITH 500G MACA VERDE", brand: "CORY", pack: "PCT/100", price: 9.50, unitPrice: 0.10, ean: "7896286620918" },
+            { code: "fit218", category: "Balas", name: "BALA MASTIGAVEL LILITH 500G SORTIDA", brand: "CORY", pack: "PCT/100", price: 9.50, unitPrice: 0.10, ean: "7896286621359" },
+            { code: "fit464", category: "Balas", name: "BALAS MASTIGAVEIS MENTOS 289,2G FRUIT MIX", brand: "PERFETTI VAN MELLE", pack: "DP/12", price: 22.00, unitPrice: 1.83, ean: "7895144207360" },
+            { code: "fit465", category: "Balas", name: "BALAS MASTIGAVEIS MENTOS 289,2G MORANGO", brand: "PERFETTI VAN MELLE", pack: "DP/12", price: 22.00, unitPrice: 1.83, ean: "7895144298788" },
+
+            // BISCOITOS (3 itens)
+            { code: "fit66", category: "Biscoitos", name: "BISCOITO RECHEADO BONO 90G CHOCOLATE", brand: "NESTLE", pack: "UND", price: 2.29, unitPrice: 2.29, ean: "7891000376843" },
+            { code: "fit474", category: "Biscoitos", name: "BISCOITO RECHEADO BONO 90G MORANGO", brand: "NESTLE", pack: "UND", price: 2.29, unitPrice: 2.29, ean: "7891000376959" },
+            { code: "fit268", category: "Biscoitos", name: "BOLACHINHA DE GOMA RIO REAL 50X35G", brand: "RIO REAL", pack: "FD/50", price: 35.00, unitPrice: 0.70, ean: "7898358630016" },
+
+            // CHICLE DE BOLA (9 itens)
+            { code: "fit185", category: "Chicle de Bola", name: "CHICLE DE BOLA BLONG 200G FRAMBOESA", brand: "PECCIN", pack: "DP/40", price: 8.00, unitPrice: 0.20, ean: "7896306617652" },
+            { code: "fit184", category: "Chicle de Bola", name: "CHICLE DE BOLA BLONG 200G FRUTAS VERMELHAS", brand: "PECCIN", pack: "DP/40", price: 8.00, unitPrice: 0.20, ean: "7896306617645" },
+            { code: "fit187", category: "Chicle de Bola", name: "CHICLE DE BOLA BLONG 200G HORTELA", brand: "PECCIN", pack: "DP/40", price: 8.00, unitPrice: 0.20, ean: "7896306617669" },
+            { code: "fit36", category: "Chicle de Bola", name: "CHICLE DE BOLA BLONG 200G MELANCIA", brand: "PECCIN", pack: "DP/40", price: 8.00, unitPrice: 0.20, ean: "7896306623585" },
+            { code: "fit40", category: "Chicle de Bola", name: "CHICLE DE BOLA BLONG 200G MORANGO", brand: "PECCIN", pack: "DP/40", price: 8.00, unitPrice: 0.20, ean: "7896306617683" },
+            { code: "fit182", category: "Chicle de Bola", name: "CHICLE DE BOLA BLONG 200G TUTTI FRUTTI", brand: "PECCIN", pack: "DP/40", price: 8.00, unitPrice: 0.20, ean: "7896306617690" },
+            { code: "fit54", category: "Chicle de Bola", name: "CHICLE DE BOLA PLUTONITA 180G BABA DE BRUXA", brand: "ARCOR", pack: "CX/40", price: 9.50, unitPrice: 0.24, ean: "7891118025985" },
+            { code: "fit399", category: "Chicle de Bola", name: "CHICLE DE BOLA TERROR ZONE CAVEIRA 320G FRAMBOESA", brand: "SUKEST", pack: "DP/40", price: 14.00, unitPrice: 0.35, ean: "02999045" },
+            { code: "fit4457", category: "Chicle de Bola", name: "CHICLE DE BOLA TERROR ZONE OLHOS 320G MORANGO", brand: "SUKEST", pack: "DP/40", price: 14.00, unitPrice: 0.35, ean: "7896043352618" },
+
+            // CHOCOLATES (8 itens)
+            { code: "fit134", category: "Chocolates", name: "BOMBONS SORTIDOS GAROTO 220G", brand: "GAROTO", pack: "UND", price: 11.50, unitPrice: 11.50, ean: "7891000457092" },
+            { code: "fit253", category: "Chocolates", name: "CHOCOLATE BATON GAROTO 480G AO LEITE", brand: "GAROTO", pack: "DP/30", price: 44.00, unitPrice: 1.47, ean: "7891008367027" },
+            { code: "fit1854", category: "Chocolates", name: "CHOCOLATE BOMBOM CROCANTE KI-KAKAU 425G", brand: "KI-KAKAU", pack: "PT/25", price: 20.00, unitPrice: 0.80, ean: "7898094763306" },
+            { code: "fit1855", category: "Chocolates", name: "CHOCOLATE CHOKOIM KI-KAKAU 465G", brand: "KI-KAKAU", pack: "PT/50", price: 20.00, unitPrice: 0.40, ean: "7898094762804" },
+            { code: "fit1820", category: "Chocolates", name: "CHOCOLATE SNICKERS 800G MARACUJA", brand: "MASTERFOODS", pack: "DP/20", price: 74.00, unitPrice: 3.70, ean: "7896423439069" },
+            { code: "fit200", category: "Chocolates", name: "CHOCOLATE SNICKERS 900G TRADICIONAL", brand: "MASTERFOODS", pack: "DP/20", price: 74.00, unitPrice: 3.70, ean: "7896423420159" },
+            { code: "fit1821", category: "Chocolates", name: "KI-TRUFA KI-KAKAU 510G BEIJINHO", brand: "KI-KAKAU", pack: "DP/30", price: 25.00, unitPrice: 0.83, ean: "7898094763382" },
+            { code: "fit1822", category: "Chocolates", name: "KI-TRUFA KI-KAKAU 510G EMOCAO", brand: "KI-KAKAU", pack: "DP/30", price: 25.00, unitPrice: 0.83, ean: "7898094763405" },
+
+            // DOCES (29 itens)
+            { code: "fit1848", category: "Doces", name: "BALAS DE GOMA GOMETS 960G CREME E FRUTAS", brand: "DORI", pack: "DP/30", price: 20.00, unitPrice: 0.67, ean: "7896058517422" },
+            { code: "fit7", category: "Doces", name: "BALAS DE GOMA GOMETS 960G FRUTAS SORTIDAS", brand: "GOMETS", pack: "CX/30", price: 20.00, unitPrice: 0.67, ean: "7896058516104" },
+            { code: "fit1849", category: "Doces", name: "BALAS DE GOMA GOMETS 960G HALLOWEEN", brand: "DORI", pack: "DP/30", price: 20.00, unitPrice: 0.67, ean: "7896058503807" },
+            { code: "fit154", category: "Doces", name: "BALAS DE GOMA GOMETS 960G IOGURTE", brand: "DORI", pack: "DP/30", price: 20.00, unitPrice: 0.67, ean: "7896058516098" },
+            { code: "fit449", category: "Doces", name: "BALAS MASTIGAVEIS UP DATE 300G SORTIDAS", brand: "RICLAN", pack: "DP/12", price: 20.00, unitPrice: 1.67, ean: "7891151042185" },
+            { code: "fit450", category: "Doces", name: "BALAS MASTIGAVEIS UP DATE TNT 300G SORTIDAS", brand: "RICLAN", pack: "DP/12", price: 20.00, unitPrice: 1.67, ean: "7891151042222" },
+            { code: "fit4447", category: "Doces", name: "BANANADA CREMOSA E'DOCE 600G", brand: "E'DOCE", pack: "DP/24", price: 29.00, unitPrice: 1.21, ean: "7898701490014" },
+            { code: "fit430", category: "Doces", name: "CARAMELO DE LEITE EMBARE 660G LEITE CONDENSADO", brand: "EMBARE", pack: "PCT/100", price: 19.00, unitPrice: 0.19, ean: "7896259417323" },
+            { code: "fit4505", category: "Doces", name: "CARAMELO MEIO A MEIO EMBARE 660G LEITE E CHOCOLATE", brand: "EMBARE", pack: "PCT/100", price: 19.00, unitPrice: 0.19, ean: "7896259417309" },
+            { code: "fit35", category: "Doces", name: "CREME DUCREM 480G LEITE CONDENSADO", brand: "JAZAM", pack: "CX/48", price: 18.00, unitPrice: 0.38, ean: "7896383054371" },
+            { code: "fit34", category: "Doces", name: "CREME DUCREM 480G NAPOLITANO", brand: "JAZAM", pack: "CX/48", price: 18.00, unitPrice: 0.38, ean: "7896383054999" },
+            { code: "fit469", category: "Doces", name: "DOCE DE AMENDOIM AMENDOLANDIA 1,02KG PE DE MOCA", brand: "AMENDOLANDIA", pack: "PT/20", price: 34.00, unitPrice: 1.70, ean: "7898943302083" },
+            { code: "fit1847", category: "Doces", name: "DOCE DE AMENDOIM AMENDOLANDIA 1,05KG CHOCOPE", brand: "AMENDOLANDIA", pack: "PT/30", price: 35.00, unitPrice: 1.17, ean: "7898943302809" },
+            { code: "fit398", category: "Doces", name: "DOCE DE AMENDOIM O SABOR DA BAHIA 1,050KG PE DE MOLEQUE", brand: "O SABOR DA BAHIA", pack: "PT/35", price: 36.00, unitPrice: 1.03, ean: "7898958830427" },
+            { code: "fit1850", category: "Doces", name: "DOCE DE AMENDOIM RIO GRANDE 1,5KG MOLECAO", brand: "RIO", pack: "PT/30", price: 34.00, unitPrice: 1.13, ean: "7897047003902" },
+            { code: "fit258", category: "Doces", name: "DOCE DE AMENDOIM RIO PEQUENA 1,5KG MOLECAO", brand: "RIO", pack: "PT/50", price: 34.00, unitPrice: 0.68, ean: "7897047003827" },
+            { code: "fit451", category: "Doces", name: "DOCE DE LEITE CHUP ROSSETTO 750G", brand: "ROSSETTO", pack: "PCT/50", price: 18.00, unitPrice: 0.36, ean: "7896492200546" },
+            { code: "fit455", category: "Doces", name: "GELATINA DORI 156G AMORA", brand: "DORI", pack: "DP/12", price: 9.00, unitPrice: 0.75, ean: "7896058500967" },
+            { code: "fit116", category: "Doces", name: "GELATINA DORI 156G BANANA", brand: "DORI", pack: "DP/12", price: 9.00, unitPrice: 0.75, ean: "7896058500929" },
+            { code: "fit432", category: "Doces", name: "GELATINA DORI 156G BEIJO", brand: "DORI", pack: "DP/12", price: 9.00, unitPrice: 0.75, ean: "7896058503234" },
+            { code: "fit456", category: "Doces", name: "GELATINA DORI 156G BOCA", brand: "DORI", pack: "DP/12", price: 9.00, unitPrice: 0.75, ean: "7896058500882" },
+            { code: "fit457", category: "Doces", name: "GELATINA DORI 156G MINHOCA", brand: "DORI", pack: "DP/12", price: 9.00, unitPrice: 0.75, ean: "7896058500943" },
+            { code: "fit1853", category: "Doces", name: "MARIOLA SABORIZO 350G GOIABA", brand: "SABORIZO", pack: "PCT/12", price: 5.00, unitPrice: 0.42, ean: "7897099312939" },
+            { code: "fit1852", category: "Doces", name: "NEGO BOM UNIBOM 1KG", brand: "UNIBOM", pack: "PCT/40", price: 12.00, unitPrice: 0.30, ean: "7898926461608" },
+            { code: "fit1851", category: "Doces", name: "NEGO BOM UNIBOM 650G", brand: "UNIBOM", pack: "PCT/40", price: 8.00, unitPrice: 0.20, ean: "7898926461615" },
+            { code: "fit1815", category: "Doces", name: "PACOCA MORENINHA DO RIO ZERO ACUCAR 276G MORANGO", brand: "RIO", pack: "DP/12", price: 15.00, unitPrice: 1.25, ean: "7897047004992" },
+            { code: "fit4509", category: "Doces", name: "PACOCA MORENINHA DO RIO ZERO ACUCAR 276G TRADICIONAL", brand: "RIO", pack: "DP/12", price: 15.00, unitPrice: 1.25, ean: "7897047003612" },
+            { code: "fit1846", category: "Doces", name: "PACOCA PACOQUERO 840G AMENDOIM", brand: "PACOQUERO", pack: "PT/56", price: 18.00, unitPrice: 0.32, ean: "7898964615506" },
+            { code: "fit470", category: "Doces", name: "QUEBRA QUEIXO CASEIRO AMOR NO POTE 800G AMENDOIM", brand: "AMOR NO POTE", pack: "PT/25", price: 26.00, unitPrice: 1.04, ean: "7898624441902" },
+
+            // DROPS (17 itens)
+            { code: "fit4506", category: "Drops", name: "DROPS FRUITTELLA 615G MORANGO", brand: "FRUITTELLA", pack: "DP/15", price: 34.00, unitPrice: 2.27, ean: "7895144228518" },
+            { code: "fit59", category: "Drops", name: "DROPS HALLS 577,5G EXTRA FORTE", brand: "HALLS", pack: "CX/21", price: 25.00, unitPrice: 1.19, ean: "7622210878946" },
+            { code: "fit61", category: "Drops", name: "DROPS HALLS 588G CEREJA", brand: "HALLS", pack: "CX/21", price: 25.00, unitPrice: 1.19, ean: "7622210812636" },
+            { code: "fit1579", category: "Drops", name: "DROPS HALLS 588G MELANCIA", brand: "HALLS", pack: "DP/21", price: 25.00, unitPrice: 1.19, ean: "7622210858290" },
+            { code: "fit425", category: "Drops", name: "DROPS HALLS 588G MENTA", brand: "HALLS", pack: "DP/21", price: 25.00, unitPrice: 1.19, ean: "7622210857255" },
+            { code: "fit426", category: "Drops", name: "DROPS HALLS 588G MENTOL", brand: "HALLS", pack: "DP/21", price: 25.00, unitPrice: 1.19, ean: "7622210857293" },
+            { code: "fit60", category: "Drops", name: "DROPS HALLS 588G MORANGO", brand: "HALLS", pack: "CX/21", price: 25.00, unitPrice: 1.19, ean: "7622210857774" },
+            { code: "fit4469", category: "Drops", name: "DROPS ICEKISS 522G SORTIDO", brand: "CORY", pack: "DP/18", price: 18.00, unitPrice: 1.00, ean: "7896286620970" },
+            { code: "fit452", category: "Drops", name: "DROPS MASTIGAVEIS AZEDINHA 525G IOGURTE", brand: "CORY", pack: "DP/15", price: 16.00, unitPrice: 1.07, ean: "7896286620345" },
+            { code: "fit4503", category: "Drops", name: "DROPS MASTIGAVEIS AZEDINHA 525G MORANGO", brand: "CORY", pack: "DP/15", price: 16.00, unitPrice: 1.07, ean: "7896286619271" },
+            { code: "fit453", category: "Drops", name: "DROPS MASTIGAVEIS LILITH 525G FRAMBOESA", brand: "CORY", pack: "DP/15", price: 16.00, unitPrice: 1.07, ean: "7896286619981" },
+            { code: "fit221", category: "Drops", name: "DROPS MASTIGAVEIS LILITH 525G MACA VERDE", brand: "CORY", pack: "DP/15", price: 16.00, unitPrice: 1.07, ean: "7896286619301" },
+            { code: "fit454", category: "Drops", name: "DROPS MASTIGAVEIS LILITH 525G TUTTI FRUTTI", brand: "CORY", pack: "DP/15", price: 16.00, unitPrice: 1.07, ean: "7896286620826" },
+            { code: "fit1789", category: "Drops", name: "DROPS MASTIGAVEIS MENTOS 600G MINT", brand: "PERFETTI VAN MELLE", pack: "DP/16", price: 35.00, unitPrice: 2.19, ean: "7896262304450" },
+            { code: "fit1788", category: "Drops", name: "DROPS MASTIGAVEIS MENTOS 600G RAINBOW", brand: "PERFETTI VAN MELLE", pack: "DP/16", price: 35.00, unitPrice: 2.19, ean: "7895144693149" },
+            { code: "fit1790", category: "Drops", name: "DROPS MASTIGAVEIS MENTOS 600G TUTTI FRUTTI", brand: "PERFETTI VAN MELLE", pack: "DP/16", price: 34.00, unitPrice: 2.12, ean: "7895144693224" },
+            { code: "fit1791", category: "Drops", name: "DROPS MASTIGAVEIS MENTOS 600G WILD SPEARMINT", brand: "PERFETTI VAN MELLE", pack: "DP/16", price: 35.00, unitPrice: 2.19, ean: "7895144900032" },
+
+            // EMBALAGENS (11 itens)
+            { code: "fit1781", category: "Embalagens", name: "BOBINA PICOTADA GUFE 20X30CM 1KG FOSCA", brand: "GUFE", pack: "UND/500", price: 34.00, unitPrice: 0.07, ean: "7898505725671" },
+            { code: "fit1784", category: "Embalagens", name: "BOBINA PICOTADA GUFE 35X50CM 5KG FOSCA", brand: "GUFE", pack: "UND/250", price: 55.00, unitPrice: 0.22, ean: "7898505725626" },
+            { code: "fit4499", category: "Embalagens", name: "BOBINA PICOTADA NEWPLAST 20X30CM 1KG LISA", brand: "NEWPLAST", pack: "UND/500", price: 36.00, unitPrice: 0.07, ean: "7898959137112" },
+            { code: "fit4500", category: "Embalagens", name: "BOBINA PICOTADA PRESERVE+ 25X35CM 2KG LISA", brand: "PRESERVE+", pack: "UND/500", price: 32.00, unitPrice: 0.06, ean: "7893590835489" },
+            { code: "fit4495", category: "Embalagens", name: "COPO DESCARTAVEL TOTALPLAST 200ML PP TRANSPARENTE M5 CX25", brand: "TOTALPLAST", pack: "PC/100", price: 5.60, unitPrice: 0.06, ean: "7898505142898" },
+            { code: "fit4497", category: "Embalagens", name: "SACOLA COMPACT P 29X39 BRANCA", brand: "COMPACT", pack: "MLH/1000", price: 38.00, unitPrice: 0.04, ean: "7898926321223" },
+            { code: "fit190", category: "Embalagens", name: "SACOLA IG PLAST P 29X39 VERDE", brand: "IG PLAST", pack: "MLH/1000", price: 48.00, unitPrice: 0.05, ean: "Sem EAN" },
+            { code: "fit138", category: "Embalagens", name: "SACOLA RECICLADA G 50X60", brand: "MANAUS", pack: "KG", price: 12.50, unitPrice: 12.50, ean: "618231462803" },
+            { code: "fit115", category: "Embalagens", name: "SACOLA RECICLADA M 40X50", brand: "MANAUS", pack: "KG", price: 12.50, unitPrice: 12.50, ean: "618231462780" },
+            { code: "fit220", category: "Embalagens", name: "SACOLA REFORCADA DE PAO BAPLAST 36X47 BRANCA", brand: "BAPLAST", pack: "CENT/100", price: 6.00, unitPrice: 0.06, ean: "Sem EAN" },
+            { code: "fit1785", category: "Embalagens", name: "SACOLA ULTRAPLAST PP 25X35 BRANCA", brand: "ULTRAPLAST", pack: "MLH/1000", price: 35.00, unitPrice: 0.04, ean: "7899567000010" },
+
+            // GOMA DE MASCAR (9 itens)
+            { code: "fit4516", category: "Goma de Mascar", name: "GOMA DE MASCAR FLICS 204G MORANGO", brand: "ARCOR", pack: "DP/12", price: 11.00, unitPrice: 0.92, ean: "7891118025848" },
+            { code: "fit4515", category: "Goma de Mascar", name: "GOMA DE MASCAR FLICS 204G TUTTI FRUTTI", brand: "ARCOR", pack: "DP/12", price: 11.00, unitPrice: 0.92, ean: "7891118025145" },
+            { code: "fit4458", category: "Goma de Mascar", name: "GOMA DE MASCAR MENTOS PURE FRESH 120G", brand: "PERFETTI VAN MELLE", pack: "DP/60", price: 22.00, unitPrice: 0.37, ean: "7895144299754" },
+            { code: "fit471", category: "Goma de Mascar", name: "GOMA DE MASCAR TRIDENT 168G CANELA", brand: "TRIDENT", pack: "DP/21", price: 38.00, unitPrice: 1.81, ean: "Sem EAN" },
+            { code: "fit472", category: "Goma de Mascar", name: "GOMA DE MASCAR TRIDENT 168G CEREJA ICE", brand: "TRIDENT", pack: "DP/21", price: 38.00, unitPrice: 1.81, ean: "Sem EAN" },
+            { code: "fit103", category: "Goma de Mascar", name: "GOMA DE MASCAR TRIDENT 168G HORTELA", brand: "TRIDENT", pack: "DP/21", price: 38.00, unitPrice: 1.81, ean: "7895800400159" },
+            { code: "fit102", category: "Goma de Mascar", name: "GOMA DE MASCAR TRIDENT 168G MENTA VERDE", brand: "TRIDENT", pack: "DP/21", price: 38.00, unitPrice: 1.81, ean: "7895800400142" },
+            { code: "fit105", category: "Goma de Mascar", name: "GOMA DE MASCAR TRIDENT 168G MORANGO", brand: "TRIDENT", pack: "DP/21", price: 38.00, unitPrice: 1.81, ean: "7895800400180" },
+            { code: "fit473", category: "Goma de Mascar", name: "GOMA DE MASCAR TRIDENT 168G TUTTI FRUTTI", brand: "TRIDENT", pack: "DP/21", price: 38.00, unitPrice: 1.81, ean: "Sem EAN" },
+
+            // HIGIENE (17 itens)
+            { code: "fit4485", category: "Higiene", name: "APARELHO DE BARBEAR BIC ACQUA 3 24X1", brand: "BIC", pack: "CART/24", price: 56.00, unitPrice: 2.33, ean: "070330729889" },
+            { code: "fit4484", category: "Higiene", name: "APARELHO DE BARBEAR BIC COMFORT 2 24X1 SENSITIVE", brand: "BIC", pack: "CART/24", price: 45.00, unitPrice: 1.88, ean: "070330711525" },
+            { code: "fit407", category: "Higiene", name: "APARELHO DE BARBEAR BIC CONFORT 3 AZUL", brand: "BIC", pack: "CART/12", price: 52.00, unitPrice: 4.33, ean: "070330717541" },
+            { code: "fit408", category: "Higiene", name: "APARELHO DE BARBEAR BIC CONFORT 3 VERDE", brand: "BIC", pack: "CART/12", price: 52.00, unitPrice: 4.33, ean: "070330717572" },
+            { code: "fit172", category: "Higiene", name: "APARELHO DE BARBEAR BIC SENSITIVE SHAVER 24X1", brand: "BIC", pack: "CART/24", price: 28.00, unitPrice: 1.17, ean: "070330705302" },
+            { code: "fit110", category: "Higiene", name: "APARELHO DE BARBEAR PRESTOBARBA ULTRAGRIP 2 24+2", brand: "GILLETTE", pack: "CART/26", price: 64.00, unitPrice: 2.46, ean: "7500435186698" },
+            { code: "fit4439", category: "Higiene", name: "APARELHO DE BARBEAR PROBAK II 28+2", brand: "GILLETTE", pack: "CART/30", price: 44.00, unitPrice: 1.47, ean: "7500435187350" },
+            { code: "fit1831", category: "Higiene", name: "DESODORANTE SPRAY REXONA 12X150ML BAMBOO", brand: "REXONA", pack: "CX/12", price: 148.00, unitPrice: 12.33, ean: "27791293032454" },
+            { code: "fit1832", category: "Higiene", name: "DESODORANTE SPRAY REXONA 12X150ML COTTON DRY", brand: "REXONA", pack: "CX/12", price: 148.00, unitPrice: 12.33, ean: "27791293032461" },
+            { code: "fit1835", category: "Higiene", name: "DESODORANTE SPRAY REXONA 12X150ML FRUTAS VERMELHAS", brand: "REXONA", pack: "CX/12", price: 148.00, unitPrice: 12.33, ean: "27891150064731" },
+            { code: "fit1834", category: "Higiene", name: "DESODORANTE SPRAY REXONA 12X150ML POWDER DRY", brand: "REXONA", pack: "CX/12", price: 148.00, unitPrice: 12.33, ean: "27791293032430" },
+            { code: "fit1836", category: "Higiene", name: "DESODORANTE SPRAY REXONA MEN 12X150ML ACTIVE DRY", brand: "REXONA", pack: "CX/12", price: 148.00, unitPrice: 12.33, ean: "27791293022592" },
+            { code: "fit1837", category: "Higiene", name: "DESODORANTE SPRAY REXONA MEN 12X150ML ANTIBACTERIAL", brand: "REXONA", pack: "CX/12", price: 148.00, unitPrice: 12.33, ean: "27791293025531" },
+            { code: "fit1838", category: "Higiene", name: "DESODORANTE SPRAY REXONA MEN 12X150ML IMPACTO", brand: "REXONA", pack: "CX/12", price: 148.00, unitPrice: 12.33, ean: "27891150054640" },
+            { code: "fit1839", category: "Higiene", name: "DESODORANTE SPRAY REXONA MEN 12X150ML INVISIBLE", brand: "REXONA", pack: "CX/12", price: 148.00, unitPrice: 12.33, ean: "27791293022639" },
+            { code: "fit1840", category: "Higiene", name: "DESODORANTE SPRAY REXONA MEN 12X150ML V8", brand: "REXONA", pack: "CX/12", price: 148.00, unitPrice: 12.33, ean: "27791293022561" },
+            { code: "fit133", category: "Higiene", name: "LAMINA DE BARBEAR WILKINSON 20X1", brand: "GILLETTE", pack: "CART/20", price: 24.00, unitPrice: 1.20, ean: "7891051015210" },
+
+            // MERCEARIA (7 itens)
+            { code: "fit274", category: "Mercearia", name: "CAFE MARATA ALMOFADA 20X250G TRADICIONAL", brand: "MARATA", pack: "FD/20", price: 250.00, unitPrice: 12.50, ean: "27898286200064" },
+            { code: "fit4474", category: "Mercearia", name: "CAFE MARATA VACUO 20X250G EXTRAFORTE", brand: "MARATA", pack: "FD/20", price: 260.00, unitPrice: 13.00, ean: "17896089006015" },
+            { code: "fit410", category: "Mercearia", name: "CAFE MARATA VACUO 20X250G TRADICIONAL", brand: "MARATA", pack: "CX/20", price: 250.00, unitPrice: 12.50, ean: "17898286200036" },
+            { code: "fit1780", category: "Mercearia", name: "CAFE MELITTA VACUO 20X250G EXTRAFORTE", brand: "MELITTA", pack: "CX/20", price: 270.00, unitPrice: 13.50, ean: "27891021006921" },
+            { code: "fit475", category: "Mercearia", name: "CAFE MELITTA VACUO 20X250G TRADICIONAL", brand: "MELITTA", pack: "CX/20", price: 270.00, unitPrice: 13.50, ean: "27891021006075" },
+            { code: "fit4445", category: "Mercearia", name: "CAFE PILAO VACUO 20X250G TRADICIONAL", brand: "PILAO", pack: "CX/20", price: 270.00, unitPrice: 13.50, ean: "17896089012634" },
+            { code: "fit4540", category: "Mercearia", name: "CAFE SOLUVEL NESCAFE 24X40G EXTRAFORTE", brand: "NESCAFE", pack: "CX/24", price: 115.00, unitPrice: 4.79, ean: "07891000416263" },
+
+            // PASTILHAS (1 item)
+            { code: "fit459", category: "Pastilhas", name: "PASTILHA MINTY 340G HORTELA", brand: "DOCILE", pack: "DP/20", price: 14.00, unitPrice: 0.70, ean: "7896451904928" },
+
+            // PIRULITOS (2 itens)
+            { code: "fit87", category: "Pirulitos", name: "PIRULITO CHERRY POP 700G MIX", brand: "SAM'S", pack: "PCT/50", price: 16.00, unitPrice: 0.32, ean: "7896707342528" },
+            { code: "fit4513", category: "Pirulitos", name: "PIRULITO DIPLOKO MONSTERS + NEON 150G BLUEBERRY LARANJA MORANGO", brand: "DIPLOKO", pack: "DP/15", price: 26.00, unitPrice: 1.73, ean: "7898754690034" },
+
+            // UTILIDADES (5 itens)
+            { code: "fit197", category: "Utilidades", name: "COADOR TRIGUEIRO GRANDE", brand: "TRIGUEIRO", pack: "PCT/12", price: 18.00, unitPrice: 1.50, ean: "7899805334204" },
+            { code: "fit198", category: "Utilidades", name: "COADOR TRIGUEIRO PEQUENO", brand: "TRIGUEIRO", pack: "PCT/12", price: 15.00, unitPrice: 1.25, ean: "7899805334211" },
+            { code: "fit1816", category: "Utilidades", name: "COPO DESCARTAVEL ULTRA 150ML PP TRANSPARENTE M5 CX25", brand: "ULTRA", pack: "PC/100", price: 5.20, unitPrice: 0.05, ean: "7898339100361" },
+            { code: "fit251", category: "Utilidades", name: "INCENSO MATA MOSQUITO VIGFDE 30X1", brand: "SANGE", pack: "CX/30", price: 7.50, unitPrice: 0.25, ean: "6253654852554" },
+            { code: "fit173", category: "Utilidades", name: "ISQUEIRO BIC MAXI 12X1", brand: "BIC", pack: "CART/12", price: 49.00, unitPrice: 4.08, ean: "070330631335" },
+
+            // WAFER RECHEADO (3 itens)
+            { code: "fit78", category: "Wafer Recheado", name: "WAFER RECHEADO BIS 100,8G BLACK", brand: "LACTA", pack: "PC/16", price: 6.50, unitPrice: 0.41, ean: "7622210833389" },
+            { code: "fit151", category: "Wafer Recheado", name: "WAFER RECHEADO BIS 100,8G LIMAO", brand: "LACTA", pack: "PC/16", price: 6.50, unitPrice: 0.41, ean: "7622210535016" },
+            { code: "fit15", category: "Wafer Recheado", name: "WAFER RECHEADO KIT KAT 996G PRETO", brand: "NESTLE", pack: "CX/24", price: 78.00, unitPrice: 3.25, ean: "7891000248775" }
+        ];
+
+        // Exact Category List requested
+        const CATEGORIES = [
+            "Todas",
+            "Balas",
+            "Biscoitos",
+            "Chicle de Bola",
+            "Chocolates",
+            "Doces",
+            "Drops",
+            "Embalagens",
+            "Goma de Mascar",
+            "Higiene",
+            "Mercearia",
+            "Pastilhas",
+            "Pirulitos",
+            "Utilidades",
+            "Wafer Recheado"
+        ];
+
+        // Visual styling map per category
+        const CATEGORY_STYLES = {
+            "Balas": { icon: "candy", bg: "bg-pink-50", text: "text-pink-700", border: "border-pink-200", accent: "bg-pink-500" },
+            "Biscoitos": { icon: "cookie", bg: "bg-amber-50", text: "text-amber-700", border: "border-amber-200", accent: "bg-amber-500" },
+            "Chicle de Bola": { icon: "circle-dot", bg: "bg-fuchsia-50", text: "text-fuchsia-700", border: "border-fuchsia-200", accent: "bg-fuchsia-500" },
+            "Chocolates": { icon: "gift", bg: "bg-stone-100", text: "text-stone-800", border: "border-stone-300", accent: "bg-stone-700" },
+            "Doces": { icon: "heart", bg: "bg-rose-50", text: "text-rose-700", border: "border-rose-200", accent: "bg-rose-500" },
+            "Drops": { icon: "sparkles", bg: "bg-cyan-50", text: "text-cyan-700", border: "border-cyan-200", accent: "bg-cyan-500" },
+            "Embalagens": { icon: "package", bg: "bg-slate-100", text: "text-slate-700", border: "border-slate-300", accent: "bg-slate-600" },
+            "Goma de Mascar": { icon: "smile", bg: "bg-emerald-50", text: "text-emerald-700", border: "border-emerald-200", accent: "bg-emerald-500" },
+            "Higiene": { icon: "shield-check", bg: "bg-sky-50", text: "text-sky-700", border: "border-sky-200", accent: "bg-sky-500" },
+            "Mercearia": { icon: "coffee", bg: "bg-orange-50", text: "text-orange-800", border: "border-orange-200", accent: "bg-orange-600" },
+            "Pastilhas": { icon: "disc", bg: "bg-teal-50", text: "text-teal-700", border: "border-teal-200", accent: "bg-teal-500" },
+            "Pirulitos": { icon: "lollipop", bg: "bg-purple-50", text: "text-purple-700", border: "border-purple-200", accent: "bg-purple-500" },
+            "Utilidades": { icon: "wrench", bg: "bg-indigo-50", text: "text-indigo-700", border: "border-indigo-200", accent: "bg-indigo-500" },
+            "Wafer Recheado": { icon: "layers", bg: "bg-yellow-50", text: "text-yellow-800", border: "border-yellow-200", accent: "bg-yellow-500" }
+        };
+
+        // =========================================================================
+        // APPLICATION STATE
+        // =========================================================================
+        let state = {
+            selectedCategory: "Todas",
+            selectedBrand: "TODAS",
+            searchQuery: "",
+            sortBy: "default",
+            cardQuantities: {}, // { fit257: 1, ... }
+            cart: [] // [{ code, qty }]
+        };
+
+        // Initialize default quantities and load persisted cart
+        CATALOG.forEach(item => {
+            state.cardQuantities[item.code] = 1;
+        });
+
+        try {
+            const savedCart = localStorage.getItem('santana_atacado_cart');
+            if (savedCart) {
+                state.cart = JSON.parse(savedCart);
+            }
+            const savedCustomerName = localStorage.getItem('santana_atacado_cname');
+            const savedCustomerDoc = localStorage.getItem('santana_atacado_cdoc');
+            if (savedCustomerName) document.getElementById('customerName').value = savedCustomerName;
+            if (savedCustomerDoc) document.getElementById('customerDocCity').value = savedCustomerDoc;
+        } catch (e) {
+            console.warn("LocalStorage indisponível:", e);
+        }
+
+        // =========================================================================
+        // FORMATTING UTILITIES
+        // =========================================================================
+        function formatBRL(value) {
+            return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+        }
+
+        function normalizeText(str) {
+            return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+        }
+
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            const bgClass = type === 'success' ? 'bg-slate-900 border-emerald-500/40' : 'bg-slate-900 border-orange-500/40';
+            const iconColor = type === 'success' ? 'text-emerald-400' : 'text-orange-400';
+            const iconName = type === 'success' ? 'check-circle-2' : 'info';
+
+            toast.className = `${bgClass} text-white px-4 py-3 rounded-xl shadow-xl border flex items-center gap-2.5 text-xs font-medium transition-all duration-300 transform translate-y-2 opacity-0`;
+            toast.innerHTML = `
+                <i data-lucide="${iconName}" class="w-4 h-4 ${iconColor} shrink-0"></i>
+                <span>${message}</span>
+            `;
+            container.appendChild(toast);
+            lucide.createIcons({ nodes: [toast] });
+
+            requestAnimationFrame(() => {
+                toast.classList.remove('translate-y-2', 'opacity-0');
+            });
+
+            setTimeout(() => {
+                toast.classList.add('translate-y-2', 'opacity-0');
+                setTimeout(() => toast.remove(), 300);
+            }, 2800);
+        }
+
+        // =========================================================================
+        // RENDER CATEGORIES & BRANDS
+        // =========================================================================
+        function renderCategoryBar() {
+            const bar = document.getElementById('categoryBar');
+            bar.innerHTML = CATEGORIES.map(cat => {
+                const count = cat === "Todas" 
+                    ? CATALOG.length 
+                    : CATALOG.filter(p => p.category === cat).length;
+                const isActive = state.selectedCategory === cat;
+                const activeClasses = isActive 
+                    ? "bg-[#0f172a] text-white border-[#0f172a] shadow-sm" 
+                    : "bg-slate-50 text-slate-600 border-slate-200 hover:bg-orange-50 hover:text-orange-700 hover:border-orange-200";
+
+                return `
+                    <button 
+                        onclick="selectCategory('${cat}')"
+                        class="shrink-0 px-3.5 py-1.5 rounded-xl text-xs font-semibold border transition-all flex items-center gap-1.5 ${activeClasses}"
+                    >
+                        <span>${cat}</span>
+                        <span class="text-[10px] px-1.5 py-0.5 rounded-full ${isActive ? 'bg-orange-500 text-white' : 'bg-slate-200/80 text-slate-600'}">${count}</span>
+                    </button>
+                `;
+            }).join('');
+        }
+
+        function renderBrandFilter() {
+            const list = document.getElementById('brandFilterList');
+            const brandCounts = {};
+            CATALOG.forEach(p => {
+                brandCounts[p.brand] = (brandCounts[p.brand] || 0) + 1;
+            });
+
+            const sortedBrands = Object.keys(brandCounts).sort((a, b) => a.localeCompare(b));
+            
+            let html = `
+                <button 
+                    onclick="selectBrand('TODAS')" 
+                    class="w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs font-medium transition-colors ${state.selectedBrand === 'TODAS' ? 'bg-orange-50 text-orange-700 font-bold' : 'text-slate-600 hover:bg-slate-50'}"
+                >
+                    <span>Todas as Marcas</span>
+                    <span class="text-[10px] text-slate-400">${CATALOG.length}</span>
+                </button>
+            `;
+
+            html += sortedBrands.map(brand => {
+                const isSelected = state.selectedBrand === brand;
+                return `
+                    <button 
+                        onclick="selectBrand('${brand.replace(/'/g, "\\'")}')" 
+                        class="w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs transition-colors text-left ${isSelected ? 'bg-orange-50 text-orange-700 font-bold' : 'text-slate-600 hover:bg-slate-50'}"
+                    >
+                        <span class="truncate pr-2">${brand}</span>
+                        <span class="text-[10px] px-1.5 py-0.5 rounded bg-slate-100 text-slate-500 shrink-0">${brandCounts[brand]}</span>
+                    </button>
+                `;
+            }).join('');
+
+            list.innerHTML = html;
+            document.getElementById('clearBrandBtn').classList.toggle('hidden', state.selectedBrand === 'TODAS');
+        }
+
+        // =========================================================================
+        // FILTERING & PRODUCT GRID RENDERING
+        // =========================================================================
+        function selectCategory(category) {
+            state.selectedCategory = category;
+            renderCategoryBar();
+            applyFilters();
+        }
+
+        function selectBrand(brand) {
+            state.selectedBrand = brand;
+            renderBrandFilter();
+            applyFilters();
+        }
+
+        function clearSearch() {
+            document.getElementById('searchInput').value = '';
+            state.searchQuery = '';
+            document.getElementById('clearSearchBtn').classList.add('hidden');
+            applyFilters();
+        }
+
+        function resetAllFilters(e) {
+            if (e) e.preventDefault();
+            state.selectedCategory = "Todas";
+            state.selectedBrand = "TODAS";
+            state.searchQuery = "";
+            state.sortBy = "default";
+            document.getElementById('searchInput').value = '';
+            document.getElementById('sortSelect').value = 'default';
+            document.getElementById('clearSearchBtn').classList.add('hidden');
+            renderCategoryBar();
+            renderBrandFilter();
+            applyFilters();
+        }
+
+        function toggleMobileFilters() {
+            const content = document.getElementById('sidebarFilterContent');
+            content.classList.toggle('hidden');
+        }
+
+        function applyFilters() {
+            state.sortBy = document.getElementById('sortSelect').value;
+            const query = normalizeText(state.searchQuery.trim());
+
+            let filtered = CATALOG.filter(item => {
+                const matchCat = state.selectedCategory === "Todas" || item.category === state.selectedCategory;
+                const matchBrand = state.selectedBrand === "TODAS" || item.brand === state.selectedBrand;
+                
+                if (!matchCat || !matchBrand) return false;
+
+                if (query) {
+                    const haystack = normalizeText(`${item.code} ${item.name} ${item.brand} ${item.ean} ${item.category} ${item.pack}`);
+                    return haystack.includes(query);
+                }
+                return true;
+            });
+
+            // Sorting
+            if (state.sortBy === "price-asc") {
+                filtered.sort((a, b) => a.price - b.price);
+            } else if (state.sortBy === "price-desc") {
+                filtered.sort((a, b) => b.price - a.price);
+            } else if (state.sortBy === "alpha-asc") {
+                filtered.sort((a, b) => a.name.localeCompare(b.name));
+            } else if (state.sortBy === "alpha-desc") {
+                filtered.sort((a, b) => b.name.localeCompare(a.name));
+            }
+
+            // Update Header Status
+            document.getElementById('activeCategoryTitle').textContent = 
+                state.selectedCategory === "Todas" ? "Catálogo Completo" : state.selectedCategory;
+            document.getElementById('visibleCount').textContent = filtered.length;
+            document.getElementById('totalCount').textContent = CATALOG.length;
+
+            // Active Filter Pills
+            const tagsContainer = document.getElementById('activeFilterTags');
+            let tagsHtml = '';
+            if (state.selectedCategory !== "Todas") {
+                tagsHtml += `<span class="inline-flex items-center gap-1 bg-slate-900 text-white text-[11px] font-semibold px-2.5 py-1 rounded-lg">Categoria: ${state.selectedCategory} <button onclick="selectCategory('Todas')" class="hover:text-orange-400">&times;</button></span>`;
+            }
+            if (state.selectedBrand !== "TODAS") {
+                tagsHtml += `<span class="inline-flex items-center gap-1 bg-orange-100 text-orange-800 text-[11px] font-semibold px-2.5 py-1 rounded-lg">Marca: ${state.selectedBrand} <button onclick="selectBrand('TODAS')" class="hover:text-orange-950">&times;</button></span>`;
+            }
+            if (query) {
+                tagsHtml += `<span class="inline-flex items-center gap-1 bg-sky-100 text-sky-800 text-[11px] font-semibold px-2.5 py-1 rounded-lg">Busca: "${state.searchQuery}" <button onclick="clearSearch()" class="hover:text-sky-950">&times;</button></span>`;
+            }
+            tagsContainer.innerHTML = tagsHtml;
+
+            renderProducts(filtered);
+        }
+
+        function renderProducts(products) {
+            const grid = document.getElementById('productsGrid');
+            const emptyState = document.getElementById('emptyState');
+
+            if (products.length === 0) {
+                grid.innerHTML = '';
+                emptyState.classList.remove('hidden');
+                return;
+            }
+
+            emptyState.classList.add('hidden');
+
+            grid.innerHTML = products.map(product => {
+                const style = CATEGORY_STYLES[product.category] || { icon: "box", bg: "bg-slate-100", text: "text-slate-700", border: "border-slate-200", accent: "bg-slate-600" };
+                const qty = state.cardQuantities[product.code] || 1;
+                const inCartItem = state.cart.find(c => c.code === product.code);
+
+                return `
+                    <article class="bg-white rounded-2xl border border-slate-200/90 hover:border-orange-300 shadow-xs hover:shadow-md transition-all flex flex-col justify-between overflow-hidden group">
+                        <div>
+                            <!-- Top Colored Strip & Category / Brand Badges -->
+                            <div class="p-4 pb-3 border-b border-slate-100 flex items-start justify-between gap-2">
+                                <div class="flex items-center gap-2 flex-wrap">
+                                    <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px] font-bold border ${style.bg} ${style.text} ${style.border}">
+                                        <i data-lucide="${style.icon}" class="w-3.5 h-3.5"></i>
+                                        ${product.category}
+                                    </span>
+                                    <span class="inline-flex items-center px-2 py-0.5 rounded-md text-[10px] font-extrabold tracking-wide uppercase bg-slate-900 text-white">
+                                        ${product.brand}
+                                    </span>
+                                </div>
+                                <span class="text-[11px] font-mono font-bold text-slate-500 bg-slate-100 px-2 py-0.5 rounded-md shrink-0">
+                                    ${product.code}
+                                </span>
+                            </div>
+
+                            <!-- Product Body -->
+                            <div class="p-4 pt-3.5">
+                                <h3 class="text-sm font-bold text-slate-900 leading-snug group-hover:text-orange-600 transition-colors min-h-[2.5rem]">
+                                    ${product.name}
+                                </h3>
+
+                                <!-- Metadata: Packaging & EAN -->
+                                <div class="mt-3 flex flex-wrap items-center gap-2 text-[11px]">
+                                    <span class="inline-flex items-center gap-1 bg-orange-50 text-orange-800 border border-orange-200/80 font-bold px-2 py-0.5 rounded-md">
+                                        <i data-lucide="package-open" class="w-3 h-3 text-orange-500"></i>
+                                        Emb: ${product.pack}
+                                    </span>
+                                    <span class="inline-flex items-center gap-1 text-slate-400 font-mono bg-slate-50 px-2 py-0.5 rounded-md border border-slate-200/60" title="Código de Barras EAN">
+                                        <i data-lucide="barcode" class="w-3 h-3"></i>
+                                        ${product.ean}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Pricing & Add to Order Footer -->
+                        <div class="p-4 pt-3 bg-slate-50/70 border-t border-slate-100 space-y-3">
+                            <div class="flex items-end justify-between">
+                                <div>
+                                    <span class="block text-[10px] uppercase font-bold tracking-wider text-slate-400">Preço ${product.pack}</span>
+                                    <span class="text-xl font-extrabold text-slate-900">${formatBRL(product.price)}</span>
+                                </div>
+                                <div class="text-right">
+                                    <span class="block text-[10px] text-slate-400 font-medium">Unitário est.</span>
+                                    <span class="inline-block text-xs font-bold text-orange-600 bg-orange-100/80 px-2 py-0.5 rounded-md">
+                                        ${formatBRL(product.unitPrice)}/un
+                                    </span>
+                                </div>
+                            </div>
+
+                            <!-- Quantity Selector + Add Button -->
+                            <div class="flex items-center gap-2">
+                                <div class="flex items-center bg-white border border-slate-300 rounded-xl overflow-hidden shrink-0">
+                                    <button 
+                                        type="button"
+                                        onclick="updateCardQty('${product.code}', -1)" 
+                                        class="w-8 h-9 flex items-center justify-center text-slate-600 hover:bg-slate-100 active:bg-slate-200 font-bold transition-colors"
+                                        aria-label="Diminuir quantidade"
+                                    >-</button>
+                                    <input 
+                                        type="number" 
+                                        min="1" 
+                                        value="${qty}" 
+                                        onchange="setCardQty('${product.code}', this.value)"
+                                        id="qty-input-${product.code}"
+                                        class="w-10 h-9 text-center text-xs font-extrabold text-slate-900 focus:outline-none border-x border-slate-200 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                                    >
+                                    <button 
+                                        type="button"
+                                        onclick="updateCardQty('${product.code}', 1)" 
+                                        class="w-8 h-9 flex items-center justify-center text-slate-600 hover:bg-slate-100 active:bg-slate-200 font-bold transition-colors"
+                                        aria-label="Aumentar quantidade"
+                                    >+</button>
+                                </div>
+
+                                <button 
+                                    type="button"
+                                    onclick="addToCart('${product.code}')" 
+                                    class="flex-1 h-9 bg-orange-500 hover:bg-orange-600 active:scale-[0.98] text-white text-xs font-bold px-3 rounded-xl flex items-center justify-center gap-1.5 shadow-xs transition-all"
+                                >
+                                    <i data-lucide="plus-circle" class="w-3.5 h-3.5"></i>
+                                    <span>Adicionar</span>
+                                </button>
+                            </div>
+
+                            ${inCartItem ? `
+                                <div class="flex items-center justify-between text-[11px] text-emerald-700 bg-emerald-50 border border-emerald-200 px-2.5 py-1 rounded-lg font-medium">
+                                    <span class="flex items-center gap-1">
+                                        <i data-lucide="check" class="w-3 h-3"></i>
+                                        No pedido: <strong>${inCartItem.qty}x</strong>
+                                    </span>
+                                    <button onclick="toggleCartDrawer(true)" class="underline font-bold hover:text-emerald-900">Ver</button>
+                                </div>
+                            ` : ''}
+                        </div>
+                    </article>
+                `;
+            }).join('');
+
+            lucide.createIcons({ nodes: [grid] });
+        }
+
+        // =========================================================================
+        // QUANTITY & CART MANAGEMENT
+        // =========================================================================
+        function updateCardQty(code, delta) {
+            const current = state.cardQuantities[code] || 1;
+            const next = Math.max(1, current + delta);
+            state.cardQuantities[code] = next;
+            const input = document.getElementById(`qty-input-${code}`);
+            if (input) input.value = next;
+        }
+
+        function setCardQty(code, val) {
+            const parsed = parseInt(val, 10);
+            const valid = isNaN(parsed) || parsed < 1 ? 1 : parsed;
+            state.cardQuantities[code] = valid;
+            const input = document.getElementById(`qty-input-${code}`);
+            if (input) input.value = valid;
+        }
+
+        function saveCartState() {
+            try {
+                localStorage.setItem('santana_atacado_cart', JSON.stringify(state.cart));
+            } catch (e) {}
+        }
+
+        function addToCart(code) {
+            const qtyToAdd = state.cardQuantities[code] || 1;
+            const product = CATALOG.find(p => p.code === code);
+            if (!product) return;
+
+            const existing = state.cart.find(item => item.code === code);
+            if (existing) {
+                existing.qty += qtyToAdd;
+            } else {
+                state.cart.push({ code, qty: qtyToAdd });
+            }
+
+            // Reset card selector back to 1 after adding
+            state.cardQuantities[code] = 1;
+
+            saveCartState();
+            updateCartUI();
+            applyFilters();
+            showToast(`+${qtyToAdd}x ${product.name} (${product.pack}) adicionado ao pedido!`);
+        }
+
+        function updateCartItemQty(code, delta) {
+            const index = state.cart.findIndex(item => item.code === code);
+            if (index === -1) return;
+
+            const newQty = state.cart[index].qty + delta;
+            if (newQty <= 0) {
+                state.cart.splice(index, 1);
+            } else {
+                state.cart[index].qty = newQty;
+            }
+
+            saveCartState();
+            updateCartUI();
+            applyFilters();
+        }
+
+        function removeCartItem(code) {
+            state.cart = state.cart.filter(item => item.code !== code);
+            saveCartState();
+            updateCartUI();
+            applyFilters();
+        }
+
+        function clearCart() {
+            state.cart = [];
+            saveCartState();
+            updateCartUI();
+            applyFilters();
+            showToast("Carrinho esvaziado.", "info");
+        }
+
+        function toggleCartDrawer(open) {
+            const drawer = document.getElementById('cartDrawer');
+            const overlay = document.getElementById('cartOverlay');
+            if (open) {
+                overlay.classList.remove('hidden');
+                requestAnimationFrame(() => {
+                    drawer.classList.remove('translate-x-full');
+                });
+            } else {
+                drawer.classList.add('translate-x-full');
+                setTimeout(() => {
+                    overlay.classList.add('hidden');
+                }, 300);
+            }
+        }
+
+        function updateCartUI() {
+            let totalVolumes = 0;
+            let grandTotal = 0;
+
+            const container = document.getElementById('cartItemsContainer');
+            const emptyMsg = document.getElementById('emptyCartMessage');
+            const customerBox = document.getElementById('customerDetailsBox');
+            const footer = document.getElementById('cartFooter');
+
+            if (state.cart.length === 0) {
+                container.innerHTML = '';
+                emptyMsg.classList.remove('hidden');
+                customerBox.classList.add('hidden');
+                footer.classList.add('hidden');
+                document.getElementById('headerCartBadge').textContent = '0';
+                document.getElementById('headerCartTotal').textContent = 'R$ 0,00';
+                return;
+            }
+
+            emptyMsg.classList.add('hidden');
+            customerBox.classList.remove('hidden');
+            footer.classList.remove('hidden');
+
+            container.innerHTML = state.cart.map(cartItem => {
+                const product = CATALOG.find(p => p.code === cartItem.code);
+                if (!product) return '';
+
+                const subtotal = product.price * cartItem.qty;
+                totalVolumes += cartItem.qty;
+                grandTotal += subtotal;
+
+                return `
+                    <div class="bg-white border border-slate-200 rounded-xl p-3 flex flex-col gap-2 shadow-2xs">
+                        <div class="flex items-start justify-between gap-2">
+                            <div>
+                                <div class="flex items-center gap-1.5">
+                                    <span class="text-[10px] font-mono font-bold bg-slate-900 text-white px-1.5 py-0.5 rounded">${product.code}</span>
+                                    <span class="text-[10px] font-bold text-orange-600 uppercase">${product.brand}</span>
+                                    <span class="text-[10px] text-slate-400 font-medium">&bull; ${product.pack}</span>
+                                </div>
+                                <h4 class="text-xs font-bold text-slate-800 mt-1 leading-snug">${product.name}</h4>
+                            </div>
+                            <button onclick="removeCartItem('${product.code}')" class="text-slate-400 hover:text-rose-500 p-1 transition-colors" title="Remover item">
+                                <i data-lucide="trash-2" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+
+                        <div class="flex items-center justify-between pt-2 border-t border-slate-100">
+                            <div class="flex items-center bg-slate-50 border border-slate-200 rounded-lg overflow-hidden">
+                                <button onclick="updateCartItemQty('${product.code}', -1)" class="w-7 h-7 flex items-center justify-center text-slate-600 hover:bg-slate-200 font-bold text-xs">-</button>
+                                <span class="w-8 text-center text-xs font-extrabold text-slate-900">${cartItem.qty}</span>
+                                <button onclick="updateCartItemQty('${product.code}', 1)" class="w-7 h-7 flex items-center justify-center text-slate-600 hover:bg-slate-200 font-bold text-xs">+</button>
+                            </div>
+                            <div class="text-right">
+                                <span class="block text-[10px] text-slate-400">${cartItem.qty}x ${formatBRL(product.price)}</span>
+                                <span class="text-sm font-extrabold text-slate-900">${formatBRL(subtotal)}</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            document.getElementById('headerCartBadge').textContent = totalVolumes;
+            document.getElementById('headerCartTotal').textContent = formatBRL(grandTotal);
+            document.getElementById('cartTotalVolumes').textContent = `${totalVolumes} ${totalVolumes === 1 ? 'volume' : 'volumes'}`;
+            document.getElementById('cartTotalSkus').textContent = `${state.cart.length} ${state.cart.length === 1 ? 'item' : 'itens'}`;
+            document.getElementById('cartGrandTotal').textContent = formatBRL(grandTotal);
+
+            lucide.createIcons({ nodes: [container] });
+        }
+
+        // =========================================================================
+        // ORDER FORMATTING & CHECKOUT ACTIONS (WHATSAPP, COPY, EMAIL)
+        // =========================================================================
+        function buildOrderMessage() {
+            const customerName = document.getElementById('customerName').value.trim();
+            const customerDocCity = document.getElementById('customerDocCity').value.trim();
+
+            try {
+                localStorage.setItem('santana_atacado_cname', customerName);
+                localStorage.setItem('santana_atacado_cdoc', customerDocCity);
+            } catch (e) {}
+
+            let totalVolumes = 0;
+            let grandTotal = 0;
+            const now = new Date();
+            const dateStr = now.toLocaleDateString('pt-BR') + ' ' + now.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+
+            let lines = [];
+            lines.push(`*PEDIDO B2B - SANTANA ATACADO*`);
+            lines.push(`Data: ${dateStr}`);
+            if (customerName) lines.push(`Cliente/Loja: *${customerName}*`);
+            if (customerDocCity) lines.push(`CNPJ/Cidade: *${customerDocCity}*`);
+            lines.push(`-----------------------------------`);
+            lines.push(`*ITENS DO PEDIDO:*`);
+
+            state.cart.forEach((cartItem, idx) => {
+                const product = CATALOG.find(p => p.code === cartItem.code);
+                if (!product) return;
+                const subtotal = product.price * cartItem.qty;
+                totalVolumes += cartItem.qty;
+                grandTotal += subtotal;
+
+                lines.push(`${idx + 1}. *[${product.code}]* ${product.name} (${product.brand})`);
+                lines.push(`   Emb: ${product.pack} | Qtd: *${cartItem.qty}x* | Unit.Emb: ${formatBRL(product.price)} | Sub: *${formatBRL(subtotal)}*`);
+            });
+
+            lines.push(`-----------------------------------`);
+            lines.push(`Total de Volumes: *${totalVolumes}*`);
+            lines.push(`Total de Itens (SKUs): *${state.cart.length}*`);
+            lines.push(`*TOTAL GERAL: ${formatBRL(grandTotal)}*`);
+            lines.push(``);
+            lines.push(`Olá Thiago Soares de Santana, aguardo confirmação do pedido e condições de faturamento!`);
+
+            return lines.join('\n');
+        }
+
+        function checkoutWhatsApp() {
+            if (state.cart.length === 0) return;
+            const message = buildOrderMessage();
+            const encoded = encodeURIComponent(message);
+            const whatsappUrl = `https://wa.me/5579996627734?text=${encoded}`;
+            window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+        }
+
+        function copyOrderSummary() {
+            if (state.cart.length === 0) return;
+            const message = buildOrderMessage().replace(/\*/g, '');
+            const tempTextArea = document.createElement('textarea');
+            tempTextArea.value = message;
+            tempTextArea.style.position = 'fixed';
+            tempTextArea.style.left = '-9999px';
+            document.body.appendChild(tempTextArea);
+            tempTextArea.select();
+            try {
+                document.execCommand('copy');
+                showToast("Resumo do pedido copiado para a área de transferência!");
+            } catch (err) {
+                showToast("Não foi possível copiar automaticamente.", "info");
+            }
+            document.body.removeChild(tempTextArea);
+        }
+
+        function checkoutEmail() {
+            if (state.cart.length === 0) return;
+            const customerName = document.getElementById('customerName').value.trim() || 'Novo Cliente B2B';
+            const subject = encodeURIComponent(`Pedido Atacado - ${customerName} | Santana Atacado`);
+            const body = encodeURIComponent(buildOrderMessage().replace(/\*/g, ''));
+            window.location.href = `mailto:santanaatacadorr@gmail.com?subject=${subject}&body=${body}`;
+        }
+
+        // =========================================================================
+        // EVENT LISTENERS & INITIALIZATION
+        // =========================================================================
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            state.searchQuery = e.target.value;
+            document.getElementById('clearSearchBtn').classList.toggle('hidden', state.searchQuery.length === 0);
+            applyFilters();
+        });
+
+        window.addEventListener('DOMContentLoaded', () => {
+            renderCategoryBar();
+            renderBrandFilter();
+            applyFilters();
+            updateCartUI();
+            lucide.createIcons();
+        });
+    </script>
+</body>
+</html>
